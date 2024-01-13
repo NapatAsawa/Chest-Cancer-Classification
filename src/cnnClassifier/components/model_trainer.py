@@ -5,8 +5,7 @@ import tensorflow as tf
 import time
 from cnnClassifier.entity.config_entity import TrainingConfig
 from pathlib import Path
-
-
+import bentoml
 
 class Training:
     def __init__(self, config: TrainingConfig):
@@ -66,6 +65,11 @@ class Training:
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
         model.save(path)
+        bentoml.tensorflow.save_model(
+            "chest-cancer",
+            model,
+            signatures={"__call__": {"batchable": True, "batch_dim": 0}}
+        )
 
 
 
