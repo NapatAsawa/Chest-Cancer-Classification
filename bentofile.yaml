@@ -1,0 +1,11 @@
+service: "service:svc" 
+labels:
+   owner: napat
+   stage: dev
+include:
+- "*.py"  
+python:
+   packages:  
+   - tensorflow
+models:
+- chest-cancer:latest
